@@ -1,20 +1,25 @@
-function player(name, x, y, speed, char){
+console.log('loaded player');
+
+function player(name, x, y, speed, char, size){
 
 	//data
 	this.x = x;
 	this.y = y;
 	this.speed = speed;
-	this.inventory = [];
+	this.inventory = new inventory(this.name, [], 3, 5);
 	this.char = char;
+	this.size = size;
 
 	//functions
 	this.draw = draw;
-
 	this.move = move;
-
 	this.openInventory = openInventory;
+	this.willCollide = willCollide;
 
 	this.draw();
+
+	this.invWindow;
+	this.invDocument;
 		
 }
 
@@ -49,10 +54,40 @@ move = function(xdiff, ydiff){
 
 };
 
-
 openInventory = function(){
-
-	var invWindow = window.open("about:blank", "inventory", "width=400, height=400");
+	
+	this.inventory.update()
 
 	return;
 };
+
+willCollide = function(x, y, dir){
+	if(dir == 'left'){
+		if(this.x - this.speed < x && this.x - this.speed + this.size > x){
+			if(this.y < y && this.y + this.size > y){
+				return true;
+			}
+		}
+		return false;
+	} else if(dir == 'up'){
+		if(this.x < x && this.x + this.size > x){
+			if(this.y - this.speed < y && this.y - this.speed + this.size > y){
+				return true;
+			}
+		}
+	} else if(dir = 'right'){
+		if(this.x + this.speed < x && this.x + this.speed + this.size){
+			if(this.y < y && this.y + this.size > y){
+				return true;
+			}
+		}
+	} else {
+		if(this.x < x && this.x + this.size > x){
+			if(this.y + this.size < y && this.y + this.size + this.size > y){
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
