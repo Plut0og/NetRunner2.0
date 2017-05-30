@@ -80,7 +80,7 @@ removeItem = function(item){
 
 viewInv = function(){
 
-	this.invWindow = window.open("Inventory/Inventory.html", "", "width="+(this.columns+1)*50+"inner-height="+(this.rows+1)*50);
+	this.invWindow = window.open("https://raw.githubusercontent.com/Plut0og/NetRunner2.0/master/Inventory/Inventory.html", "", "width="+(this.columns+1)*50+"inner-height="+(this.rows+1)*50);
 	this.isOpen = true;
 	this.invWindow.addEventListener('message', handleMessage);
 }
