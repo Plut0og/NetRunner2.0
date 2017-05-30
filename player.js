@@ -6,7 +6,7 @@ function player(name, x, y, speed, char, size){
 	this.x = x;
 	this.y = y;
 	this.speed = speed;
-	this.inventory = new inventory(this.name, [], 3, 5);
+	this.inventory = new inventory(this.name, [], 5, 3);
 	this.char = char;
 	this.size = size;
 

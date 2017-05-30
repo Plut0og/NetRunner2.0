@@ -8,32 +8,48 @@ function inventory(name, initItems, rows, columns){
 	this.addItem  = addItem;
 	this.removeItem = removeItem;
 
+	this.isOpen = false;
 	this.name = name;
 	this.items = initItems;
-	this.container = this.formatItems();
+	this.container = this.formatItems(this.items);
 	this.rows = rows;
 	this.columns = columns;
 
-	this.invWindow = window.open("Inventory.html", "", "width="+(this.columns+1)*50+"height="+(this.rows+1)*50);
-	this.invDocument = this.invWindow.document;
-	this.invWindow.close()
-
+	this.viewInv()
 }
 
-formatItems = function(){
+handleMessage = function(event){
+	if(event.data[0] == 'displayState'){
+		if(event.data[1] == false){
+			LOCALPLAYER.inventory.isOpen = false;
+			LOCALPLAYER.inventory.invWindow.close();
+		} else {
+			LOCALPLAYER.inventory.isOpen = true;
+		}
+	}
+	return;
+}
+
+
+formatItems = function(items){
+
+	console.log(this);
+	if(items.length == 0){
+		return;
+	}
 
 	var formattedItems = [];
 	var row = 0;
-	for (var c = 0; c < Math.ceil(this.items.length / this.columns); c++){
+	for (var c = 0; c < Math.ceil(items.length / this.columns); c++){
 		formattedItems.push([])
 	}
 
-	for(var i = 0; i < this.items.length; i++){
+	for(var i = 0; i < items.length; i++){
 		if(this.columns > formattedItems[row].length){
-			formattedItems[row].push(this.items[i]);
+			formattedItems[row].push(items[i]);
 		} else {
 			row += 1;
-			formattedItems[row].push(this.items[i]);
+			formattedItems[row].push(items[i]);
 		}
 
 	}
@@ -43,41 +59,38 @@ formatItems = function(){
 
 addItem = function(item){
 	this.items.push(item);
+	this.update();
 }
 
 removeItem = function(item){
 	var removed = []
-	for(var i = 0; i < this.items.length; i++){
+	for(var i = this.items.length - 1; i > 0; i--){
 		if(this.items[i] != item){
-			removed.push(this.items.shift);
+			removed.push(this.items.pop());
 		} else {
-			this.items.shift;
+			console.log(this.items);
+			this.items.pop();
 			break;
 		}
 	}
-	for(var r = 0; r < removed.length; r++){
-		this.items.unshift(removed[i]);
-	}
+	console.log(removed);
+	this.items = this.items.concat(removed);
+	this.update()
 }
 
 viewInv = function(){
 
-	this.invWindow = window.open("Inventory.html", "", "width="+(this.columns+1)*50+"height="+(this.rows+1)*50);
+	this.invWindow = window.open("Inventory/Inventory.html", "", "width="+(this.columns+1)*50+"inner-height="+(this.rows+1)*50);
+	this.isOpen = true;
+	this.invWindow.addEventListener('message', handleMessage);
 }
 
 update = function(){
 
-	this.container = this.formatItems();
-	console.log(this.invDocument);
-
-	this.invDocument.getElementsByTagName('head')[0].innerHTML += "<title>"+this.name+"</title>";
-	for(var r = 0; r < this.container.length; r++){
-		this.invDocument.getElementById('items').innerHTMl += "<tr id='itemRow+"+r+"+'></tr>";
-		for(var c = 0; c < this.container[r].length; c++){
-			this.invDocument.getElementById('itemRow'+r).innerHTMl += "<td style='text-align:center; padding: 4px; ''>"+container[r][c]+"</td>"
-		}
+	if(!this.isOpen){
+		this.viewInv();
+	} else { 
+		this.container = this.formatItems(this.items);
+		this.invWindow.postMessage(['container', this.container], '*');
 	}
-
-	this.viewInv()
-
 }
