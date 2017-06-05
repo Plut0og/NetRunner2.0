@@ -26,6 +26,9 @@ function main(){
 		sTest.translate(10,10);
 		sTest.scale(2);
 		sTest.rotate(90);
+		sword = swordItem(100, 100);
+		sword.pickUp(LOCALPLAYER);
+		sword.onUse(0);
 	}
 }
 
