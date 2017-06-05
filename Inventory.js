@@ -14,8 +14,6 @@ function inventory(name, initItems, rows, columns){
 	this.container = this.formatItems(this.items);
 	this.rows = rows;
 	this.columns = columns;
-
-	this.viewInv()
 }
 
 handleMessage = function(event){
@@ -80,7 +78,7 @@ removeItem = function(item){
 
 viewInv = function(){
 
-	this.invWindow = window.open("https://raw.githubusercontent.com/Plut0og/NetRunner2.0/master/Inventory/Inventory.html", "", "width="+(this.columns+1)*50+"inner-height="+(this.rows+1)*50);
+	this.invWindow = window.open("Inventory/Inventory.html", "", "width="+(this.columns+1)*50+"inner-height="+(this.rows+1)*50);
 	this.isOpen = true;
 	this.invWindow.addEventListener('message', handleMessage);
 }
@@ -89,7 +87,7 @@ update = function(){
 
 	if(!this.isOpen){
 		this.viewInv();
-	} else { 
+	} else {
 		this.container = this.formatItems(this.items);
 		this.invWindow.postMessage(['container', this.container], '*');
 	}

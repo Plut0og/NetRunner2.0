@@ -19,10 +19,13 @@ function main(){
 
 	} else {
 
-		var name = prompt("What would you like to be named?", "");
-		LOCALPLAYER = new player(name, 5, 5, 5, '@', 10);
+		//var name = prompt("What would you like to be named?", "");
+		LOCALPLAYER = new player("player", 5, 5, 5, '@', 10);
 		document.addEventListener('keydown', inputHandler, true);
-
+		var sTest = new Sprite(["I AM A SPRITE"], 10, 10, 10, 0);
+		sTest.translate(10,10);
+		sTest.scale(2);
+		sTest.rotate(90);
 	}
 }
 
@@ -63,7 +66,7 @@ function decomposeWordsFromDoc(node){
 				case 3 :
 					if(!/^\s*$/.test(node.nodeValue) && node.nodeValue != null && node.nodeName != 'word' && node.nodeName != 'lettergroup' && node.nodeName != 'letter'){
 						var parent = node.parentNode;
-						if(parent.childNodes.length === 1){ 
+						if(parent.childNodes.length === 1){
 							parent.innerHTML = decomposeText(node.nodeValue);
 							return
 						} else {
@@ -137,7 +140,7 @@ function createCORSRequest(method, url){
     return xhr;
 }
 
-function teleport(dest){ 
+function teleport(dest){
 	console.log('tp-ing to: '+ dest)
 	var request = createCORSRequest("get", "https://crossorigin.me/" + dest)
 	if (request){
@@ -150,7 +153,7 @@ function teleport(dest){
     				console.log("website is unreachable(error:" + this.status + ")")
     			}
     		};
-    		console.log('tp request sent');	
+    		console.log('tp request sent');
     		request.send();
     };
 }
