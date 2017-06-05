@@ -1,6 +1,7 @@
 var LOCALPLAYER;
 var COLLIDEABLES = [];
 var DOCWORDS = [];
+var CURWORLD = new World(0,0, window.innerWidth, window.innerHeight);
 console.log('loaded main');
 
 function main(){
@@ -22,6 +23,10 @@ function main(){
 		//var name = prompt("What would you like to be named?", "");
 		LOCALPLAYER = new player("player", 5, 5, 5, '@', 10);
 		document.addEventListener('keydown', inputHandler, true);
+		var sword = swordItem(50,50);
+		CURWORLD.addObject(sword, 'items');
+		console.log(CURWORLD.all);
+		console.log(CURWORLD.trees);
 	}
 }
 

@@ -12,6 +12,8 @@ function Sprite(img, x, y, size, rot){
   this.rotate = rotate;
   this.updateStyle = updateStyle;
   this.stepFrame = stepFrame;
+  this.getHeight = getHeight;
+  this.getWidth = getWidth;
 
   this.element = document.createElement('sprite');
   this.element.style.position = "absolute";
@@ -39,6 +41,14 @@ stepFrame = function(){
   console.log((this.imgStep+1)%this.imgList.length);
   this.img = this.imgList[(this.imgStep+1)%this.imgList.length];
   this.updateStyle();
+}
+
+getHeight = function(){
+  return 10;
+}
+
+getWidth = function(){
+  return 10;
 }
 
 updateStyle = function(){
