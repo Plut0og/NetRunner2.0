@@ -8,6 +8,7 @@ function player(name, x, y, speed, char, size){
 	this.inventory = new inventory(this.name, [], 5, 3);
 	this.char = char;
 	this.size = size;
+	this.uuid = generateUUID();
 
 	//functions
 	this.move = move;

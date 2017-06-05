@@ -3,6 +3,7 @@ function Item(name, img, x, y, size, rot, onUse){
   this.sprite = new Sprite(img, x, y, size, rot);
   this.visible = true;
   this.owner = false
+  this.uuid = generateUUID();
 
   this.toggleVisibility = toggleVisibility;
   this.onUse = onUse;
