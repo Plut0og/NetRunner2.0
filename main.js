@@ -2,7 +2,6 @@ var LOCALPLAYER;
 var COLLIDEABLES = [];
 var DOCWORDS = [];
 var CURWORLD = new World(0,0, window.innerWidth, window.innerHeight);
-console.log('loaded main');
 
 function main(){
 	if(document.getElementsByTagName('currentroom').length > 0){

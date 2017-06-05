@@ -12,12 +12,18 @@ function World(x, y, width, height){
   this.addObject = addObject;
   this.updateTree = updateTree;
   this.updateObject = updateObject;
+  this.removeObject = removeObject;
 }
 
 addObject = function(object, tree){
   var data = getData(object);
   this.all[tree][object.uuid] = data;
   this.trees[tree].insert(data);
+}
+
+removeObject = function(object, tree){
+  delete this.all[tree][object.uuid];
+  this.updateTree(tree);
 }
 
 updateObject = function(object, tree){
