@@ -22,13 +22,6 @@ function main(){
 		//var name = prompt("What would you like to be named?", "");
 		LOCALPLAYER = new player("player", 5, 5, 5, '@', 10);
 		document.addEventListener('keydown', inputHandler, true);
-		var sTest = new Sprite(["I AM A SPRITE"], 10, 10, 10, 0);
-		sTest.translate(10,10);
-		sTest.scale(2);
-		sTest.rotate(90);
-		sword = swordItem(100, 100);
-		sword.pickUp(LOCALPLAYER);
-		sword.onUse(0);
 	}
 }
 
